@@ -1,0 +1,7 @@
+virtual/
+*/migration/
+__pycache__/
+
+*.pyc
+.vscode 
+
