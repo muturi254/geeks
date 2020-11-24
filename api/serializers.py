@@ -6,9 +6,10 @@ from django.contrib.auth.models import User
 # serializer classes 
 class TodoSerializer(serializers.ModelSerializer):
 
+    owner = serializers.ReadOnlyField(source='owner.username')
     class Meta:
         model = Todo
-        fields = ['name', 'pub_date', 'category']
+        fields = ['name', 'pub_date', 'category', 'owner']
 
 class CategorySerializer(serializers.ModelSerializer):
 
@@ -19,6 +20,8 @@ class CategorySerializer(serializers.ModelSerializer):
 
 class UserSerializer(serializers.ModelSerializer):
 
+    Todo= serializers.StringRelatedField(many=True, read_only=True)
+
     class Meta:
         model = User
-        fields = ['id', 'username']
+        fields = ['id', 'username', 'Todo']
