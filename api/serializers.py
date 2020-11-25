@@ -17,11 +17,21 @@ class CategorySerializer(serializers.ModelSerializer):
         model = Category
         fields = '__all__'
 
+class UserCreationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['username', 'email', 'password']
+        extra_kwargs = {'password': {'write_only': True}}
+
+
+
 
 class UserSerializer(serializers.ModelSerializer):
-
     Todo= serializers.StringRelatedField(many=True, read_only=True)
 
     class Meta:
         model = User
         fields = ['id', 'username', 'Todo']
+
+class LogOutSerializer(serializers.Serializer):
+    refresh_token = serializers.CharField(required=True)
